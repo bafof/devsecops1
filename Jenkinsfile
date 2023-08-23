@@ -21,7 +21,7 @@ pipeline {
 		//--------------------------
 		stage('Docker Build and Push') {
   			steps {
-    				withCredentials([string(credentialsId: 'adceee31-b1de-4411-87af-ad56ab93e129', variable: 'DOCKER_HUB_PASSWORD')]) {
+    				withCredentials([string(credentialsId: 'password_dockerhub', variable: 'DOCKER_HUB_PASSWORD')]) {
       					sh 'sudo docker login -u bafof -p $DOCKER_HUB_PASSWORD'
       					sh 'printenv'
       					sh 'sudo docker build -t bafof/devops-app:""$GIT_COMMIT"" .'
