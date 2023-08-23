@@ -22,10 +22,10 @@ pipeline {
 		stage('Docker Build and Push') {
   			steps {
     				withCredentials([string(credentialsId: 'adceee31-b1de-4411-87af-ad56ab93e129', variable: 'DOCKER_HUB_PASSWORD')]) {
-      					sh 'sudo docker login -u barif -p $DOCKER_HUB_PASSWORD'
+      					sh 'sudo docker login -u bafof -p $DOCKER_HUB_PASSWORD'
       					sh 'printenv'
-      					sh 'sudo docker build -t barif/devops-app:""$GIT_COMMIT"" .'
-      					sh 'sudo docker push barif/devops-app:""$GIT_COMMIT""'
+      					sh 'sudo docker build -t bafof/devops-app:""$GIT_COMMIT"" .'
+      					sh 'sudo docker push bafof/devops-app:""$GIT_COMMIT""'
     				}
 
   			}
@@ -34,7 +34,7 @@ pipeline {
 		stage('Deployment Kubernetes  ') {
   			steps {
     				withKubeConfig([credentialsId: 'kubeconfig']) {
-           				sh "sed -i 's#replace#barif/devops-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
+           				sh "sed -i 's#replace#bafof/devops-app:${GIT_COMMIT}#g' k8s_deployment_service.yaml"
            				sh "kubectl apply -f k8s_deployment_service.yaml"
          			}
   			}
